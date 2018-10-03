@@ -1,3 +1,4 @@
+import bean.Order;
 import bean.OrderUser;
 import bean.User;
 import mapper.UserMapper;
@@ -35,6 +36,17 @@ public class Demo05 {
 
         for (OrderUser ou : orderUsers) {
             System.out.println(ou);
+        }
+    }
+
+    @Test
+    public void test02() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        List<Order> orders = mapper.queryOrderUserResultMap();
+
+        for (Order o : orders) {
+            System.out.println(o);
         }
     }
 }

@@ -28,7 +28,7 @@
         使用POJO时配置文件要放在 mapper 文件夹下
         不知道什么鬼。。。。
     -->
-    <select id="queryUserByQueryVo" parameterType="bean.QueryVo" resultType="bean.User" >
+    <select id="queryUserByQueryVo" parameterType="bean.QueryVo" resultType="bean.User">
         SELECT * FROM `user` WHERE username LIKE '%${user.username}%'
     </select>
 
@@ -49,6 +49,37 @@
         LEFT JOIN `user` u ON o.user_id = u.id
     </select>
 
+    <!-- 查找订单用户 -->
+    <!-- 一对一查询 -->
+    <resultMap id="orderUserResultMap" type="bean.Order">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="number" column="number"/>
+        <result property="createtime" column="createtime"/>
+        <result property="note" column="note"/>
+        <!-- association ：配置一对一属性 -->
+        <!-- property:order 里面的 User 属性名 -->
+        <!-- javaType:属性类型 -->
+        <association property="user" javaType="user">
+            <!-- id:声明主键，表示 user_id 是关联查询对象的唯一标识-->
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+    <select id="queryOrderUserResultMap" resultMap="orderUserResultMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.number,
+            o.createtime,
+            o.note,
+            u.username,
+            u.address
+        FROM
+            `orders` o
+        LEFT JOIN `user` u ON o.user_id = u.id
+</select>
 
-    
+
 </mapper>
