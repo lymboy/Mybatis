@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+    <!-- 通过ID查询 -->
+    <select id="queryUserById" parameterType="int" resultType="bean.User">
+      SELECT * FROM `user` WHERE id = #{id} ;
+    </select>
+
+    <!-- 通过用户名查询 -->
+    <select id="queryUserByUserName" parameterType="String" resultType="bean.User">
+        SELECT * FROM `user` WHERE username LIKE #{username}
+    </select>
+
+    <!-- 保存用户 -->
+    <insert id="saveUser" parameterType="bean.User">
+        <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `mybatis`.`user` (
+        `username`,`birthday`, `sex`,`address`
+        )
+        VALUES( #{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <!--
+        使用POJO时配置文件要放在 mapper 文件夹下
+        不知道什么鬼。。。。
+    -->
+    <select id="queryUserByQueryVo" parameterType="bean.QueryVo" resultType="bean.User" >
+        SELECT * FROM `user` WHERE username LIKE '%${user.username}%'
+    </select>
+
+
+
+
+    
+</mapper>
