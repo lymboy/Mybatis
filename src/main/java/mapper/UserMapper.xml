@@ -24,13 +24,9 @@
         VALUES( #{username}, #{birthday}, #{sex}, #{address})
     </insert>
 
-
-    <select id="queryUserByQueryVo" parameterType="bean.QueryVo" resultType="bean.User" >
+    <!-- POJO -->
+    <select id="queryUserByQueryVo" parameterType="bean.QueryVo" resultType="bean.User">
         SELECT * FROM `user` WHERE username LIKE 'Emma'
     </select>
 
-
-
-
-    
 </mapper>

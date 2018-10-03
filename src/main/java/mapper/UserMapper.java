@@ -1,5 +1,6 @@
 package mapper;
 
+import bean.OrderUser;
 import bean.QueryVo;
 import bean.User;
 
@@ -37,4 +38,9 @@ public interface UserMapper {
      */
     List<User> queryUserByQueryVo(QueryVo queryVo);
 
+    /**
+     * 一对一关联
+     * @return
+     */
+    List<OrderUser> queryOrderUser();
 }
